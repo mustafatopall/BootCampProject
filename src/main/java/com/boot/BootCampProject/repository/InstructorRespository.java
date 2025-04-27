@@ -1,0 +1,9 @@
+package com.boot.BootCampProject.repository;
+
+import com.boot.BootCampProject.entity.Instructor;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface InstructorRespository extends JpaRepository<Instructor,Integer> {
+}
