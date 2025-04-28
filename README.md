@@ -22,7 +22,7 @@ Bu proje, bir eğitim kampı (Bootcamp) yönetim sisteminin temel servislerini i
 
 1. Projeyi klonlayın:
    ```bash
-   git clone https://github.com/kullanici-adi/BootCampProject.git
+   git clone https://github.com/mustafatopall/BootCampProject.git
    ```
 2. Proje dizinine gidin:
    ```bash
