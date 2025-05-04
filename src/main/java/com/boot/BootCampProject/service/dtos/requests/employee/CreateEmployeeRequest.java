@@ -1,30 +1,4 @@
 package com.boot.BootCampProject.service.dtos.requests.employee;
 
-public class CreateEmployeeRequest {
-    private String firstName;
-    private String lastName;
-
-    public CreateEmployeeRequest() {}
-
-
-    public CreateEmployeeRequest(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+public record CreateEmployeeRequest(String firstName, String lastName, String dateOfBirth, String nationalIdentity, String email, String password,String position) {
 }

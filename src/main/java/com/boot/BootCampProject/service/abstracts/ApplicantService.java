@@ -1,10 +1,7 @@
 package com.boot.BootCampProject.service.abstracts;
 
-import com.boot.BootCampProject.service.dtos.requests.applicant.CreateApplicantRequest;
-import com.boot.BootCampProject.service.dtos.requests.applicant.UpdateApplicantRequest;
-import com.boot.BootCampProject.service.dtos.responses.applicant.CreateApplicantResponse;
-import com.boot.BootCampProject.service.dtos.responses.applicant.GetListApplicantResponse;
-import com.boot.BootCampProject.service.dtos.responses.applicant.UpdateApplicantResponse;
+import com.boot.BootCampProject.service.dtos.requests.applicant.*;
+import com.boot.BootCampProject.service.dtos.responses.applicant.*;
 
 import java.util.List;
 
@@ -14,7 +11,7 @@ public interface ApplicantService {
     List<GetListApplicantResponse> getAll();
     UpdateApplicantResponse update(UpdateApplicantRequest request);
     void delete(int id);
-    GetListApplicantResponse getById(int id);
+    GetApplicantResponse getById(int id);
 
 
 }

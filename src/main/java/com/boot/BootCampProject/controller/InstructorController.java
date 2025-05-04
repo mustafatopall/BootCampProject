@@ -1,11 +1,8 @@
 package com.boot.BootCampProject.controller;
 
 import com.boot.BootCampProject.service.abstracts.InstructorService;
-import com.boot.BootCampProject.service.dtos.requests.instructor.CreateInstructorRequest;
-import com.boot.BootCampProject.service.dtos.requests.instructor.UpdateInstructorRequest;
-import com.boot.BootCampProject.service.dtos.responses.instructor.CreateInstructorResponse;
-import com.boot.BootCampProject.service.dtos.responses.instructor.GetListInstructorResponse;
-import com.boot.BootCampProject.service.dtos.responses.instructor.UpdateInstructorResponse;
+import com.boot.BootCampProject.service.dtos.responses.instructor.*;
+import com.boot.BootCampProject.service.dtos.requests.instructor.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +29,7 @@ public class InstructorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetListInstructorResponse> getById(@PathVariable int id) {
+    public ResponseEntity<GetInstructorResponse> getById(@PathVariable int id) {
         return ResponseEntity.ok(instructorService.getById(id));
     }
 

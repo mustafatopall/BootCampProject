@@ -1,11 +1,8 @@
 package com.boot.BootCampProject.controller;
 
 import com.boot.BootCampProject.service.abstracts.ApplicantService;
-import com.boot.BootCampProject.service.dtos.requests.applicant.CreateApplicantRequest;
-import com.boot.BootCampProject.service.dtos.requests.applicant.UpdateApplicantRequest;
-import com.boot.BootCampProject.service.dtos.responses.applicant.CreateApplicantResponse;
-import com.boot.BootCampProject.service.dtos.responses.applicant.GetListApplicantResponse;
-import com.boot.BootCampProject.service.dtos.responses.applicant.UpdateApplicantResponse;
+import com.boot.BootCampProject.service.dtos.responses.applicant.*;
+import com.boot.BootCampProject.service.dtos.requests.applicant.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +29,7 @@ public class ApplicantController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetListApplicantResponse> getById(@PathVariable int id) {
+    public ResponseEntity<GetApplicantResponse> getById(@PathVariable int id) {
         return ResponseEntity.ok(applicantService.getById(id));
     }
 

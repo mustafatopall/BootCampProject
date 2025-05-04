@@ -1,11 +1,8 @@
 package com.boot.BootCampProject.controller;
 
 import com.boot.BootCampProject.service.abstracts.EmployeeService;
-import com.boot.BootCampProject.service.dtos.requests.employee.CreateEmployeeRequest;
-import com.boot.BootCampProject.service.dtos.requests.employee.UpdateEmployeeRequest;
-import com.boot.BootCampProject.service.dtos.responses.employee.CreateEmployeeResponse;
-import com.boot.BootCampProject.service.dtos.responses.employee.GetListEmployeeResponse;
-import com.boot.BootCampProject.service.dtos.responses.employee.UpdateEmployeeResponse;
+import com.boot.BootCampProject.service.dtos.responses.employee.*;
+import com.boot.BootCampProject.service.dtos.requests.employee.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +29,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetListEmployeeResponse> getById(@PathVariable int id) {
+    public ResponseEntity<GetEmployeeResponse> getById(@PathVariable int id) {
         return ResponseEntity.ok(employeeService.getById(id));
     }
 

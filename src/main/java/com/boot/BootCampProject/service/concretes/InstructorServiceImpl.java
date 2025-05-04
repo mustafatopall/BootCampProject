@@ -6,55 +6,53 @@ import com.boot.BootCampProject.service.abstracts.InstructorService;
 import com.boot.BootCampProject.service.dtos.requests.instructor.CreateInstructorRequest;
 import com.boot.BootCampProject.service.dtos.requests.instructor.UpdateInstructorRequest;
 import com.boot.BootCampProject.service.dtos.responses.instructor.CreateInstructorResponse;
+import com.boot.BootCampProject.service.dtos.responses.instructor.GetInstructorResponse;
 import com.boot.BootCampProject.service.dtos.responses.instructor.GetListInstructorResponse;
 import com.boot.BootCampProject.service.dtos.responses.instructor.UpdateInstructorResponse;
+import com.boot.BootCampProject.service.mappers.instructor.InstructorMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class InstructorServiceImpl implements InstructorService {
 
     private final InstructorRespository instructorRepository;
+    private final InstructorMapper instructorMapper;
 
-    public InstructorServiceImpl(InstructorRespository instructorRepository) {
+    public InstructorServiceImpl(InstructorRespository instructorRepository, InstructorMapper instructorMapper) {
         this.instructorRepository = instructorRepository;
+        this.instructorMapper = instructorMapper;
     }
 
     @Override
     public CreateInstructorResponse add(CreateInstructorRequest request) {
-        Instructor instructor = new Instructor();
-        instructor.setFirstName(request.getFirstName());
-        instructor.setLastName(request.getLastName());
-        Instructor savedInstructor = instructorRepository.save(instructor);
+        Instructor instructor = instructorMapper.toEntity(request);
+        Instructor saved = instructorRepository.save(instructor);
 
-        CreateInstructorResponse response = new CreateInstructorResponse();
-        response.setId(savedInstructor.getId());
-        response.setFirstName(savedInstructor.getFirstName());
-        response.setLastName(savedInstructor.getLastName());
-        return response;
+        return instructorMapper.toCreateResponse(saved);
     }
 
     @Override
     public List<GetListInstructorResponse> getAll() {
-        return instructorRepository.findAll().stream()
-                .map(this::mapToResponse).collect(Collectors.toList());
+        return instructorMapper.toGetListResponse(instructorRepository.findAll());
     }
 
     @Override
     public UpdateInstructorResponse update(UpdateInstructorRequest request) {
-        Instructor instructor = instructorRepository.findById(request.getId())
-                .orElseThrow(() -> new RuntimeException("Instructor not found"));
-        instructor.setFirstName(request.getFirstName());
-        instructor.setLastName(request.getLastName());
-        Instructor updatedInstructor = instructorRepository.save(instructor);
+       Instructor instructor = instructorRepository.findById(request.id())
+               .orElseThrow(() -> new RuntimeException("Instructor not found!!!"));
 
-        UpdateInstructorResponse response = new UpdateInstructorResponse();
-        response.setId(updatedInstructor.getId());
-        response.setFirstName(updatedInstructor.getFirstName());
-        response.setLastName(updatedInstructor.getLastName());
-        return response;
+       instructor.setFirstName(request.firstName());
+       instructor.setLastName(request.lastName());
+       instructor.setEmail(request.email());
+       instructor.setCompanyName(request.companyName());
+
+       Instructor saved = instructorRepository.save(instructor);
+
+       return instructorMapper.toUpdateResponse(saved);
+
     }
 
     @Override
@@ -63,25 +61,9 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public GetListInstructorResponse getById(int id) {
+    public GetInstructorResponse getById(int id) {
         Instructor instructor = instructorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Instructor not found"));
-        return mapToInstructorResponse(instructor);
-    }
-
-    private GetListInstructorResponse mapToResponse(Instructor instructor) {
-        GetListInstructorResponse response = new GetListInstructorResponse();
-        response.setId(instructor.getId());
-        response.setFirstName(instructor.getFirstName());
-        response.setLastName(instructor.getLastName());
-        return response;
-    }
-
-    private GetListInstructorResponse mapToInstructorResponse(Instructor instructor) {
-        GetListInstructorResponse response = new GetListInstructorResponse();
-        response.setId(instructor.getId());
-        response.setFirstName(instructor.getFirstName());
-        response.setLastName(instructor.getLastName());
-        return response;
+                .orElseThrow(() -> new RuntimeException("Instructor not found!!!"));
+        return instructorMapper.toGetResponse(instructor);
     }
 }
