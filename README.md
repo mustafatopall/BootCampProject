@@ -1,8 +1,7 @@
 
 # BootCampProject
 
-Bu proje, bir eğitim kampı (Bootcamp) yönetim sisteminin temel servislerini içerir. Adaylar (Applicant), Eğitmenler (Instructor) ve Çalışanlar (Employee) için CRUD işlemleri yapılabilir.
-
+Bu proje, bir eğitim kampı (Bootcamp) yönetim sisteminin temel servislerini içerir. CRUD işlemleri yapılabilir.
 ## Kullanılan Teknolojiler
 
 - Java 17
@@ -13,7 +12,7 @@ Bu proje, bir eğitim kampı (Bootcamp) yönetim sisteminin temel servislerini i
 
 ## Proje Özellikleri
 
-- **Applicant**, **Instructor** ve **Employee** entity’leri oluşturuldu.
+- **Applicant**, **Instructor**, **Employee**, **Application**, **Bootcamp** ve **Blacklist** entity’leri oluşturuldu.
 - Service ve Controller katmanları ile CRUD işlemleri sağlandı.
 - DTO yapısı kullanılarak veri transferi düzenlendi.
 - Temiz kod ve katmanlı mimari prensiplerine uygun geliştirildi.
@@ -46,7 +45,7 @@ Uygulama başlatıldıktan sonra aşağıdaki gibi API endpointleri kullanabilir
 - `PUT /api/applicants/{id}` - Aday bilgilerini güncelle
 - `DELETE /api/applicants/{id}` - Adayı sil
 
-Benzer endpointler Instructor ve Employee için de geçerlidir.
+Benzer endpointler diğerleri için de geçerlidir.
 
 ## Lisans
 

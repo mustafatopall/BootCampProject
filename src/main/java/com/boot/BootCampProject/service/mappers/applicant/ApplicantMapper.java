@@ -12,6 +12,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ApplicantMapper {
 
+    @Mapping(target = "applications", ignore = true) // applications ilişkilendirmesini yok sayıyoruz
     Applicant toEntity(CreateApplicantRequest createApplicantRequest);
 
     CreateApplicantResponse toCreateResponse(Applicant applicant);

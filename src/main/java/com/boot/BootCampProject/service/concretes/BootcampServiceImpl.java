@@ -3,12 +3,8 @@ package com.boot.BootCampProject.service.concretes;
 import com.boot.BootCampProject.entity.Bootcamp;
 import com.boot.BootCampProject.repository.BootcampRepository;
 import com.boot.BootCampProject.service.abstracts.BootcampService;
-import com.boot.BootCampProject.service.dtos.requests.bootcamp.CreateBootcampRequest;
-import com.boot.BootCampProject.service.dtos.requests.bootcamp.UpdateBootcampRequest;
-import com.boot.BootCampProject.service.dtos.responses.bootcamp.CreateBootcampResponse;
-import com.boot.BootCampProject.service.dtos.responses.bootcamp.GetBootcampResponse;
-import com.boot.BootCampProject.service.dtos.responses.bootcamp.GetListBootcampResponse;
-import com.boot.BootCampProject.service.dtos.responses.bootcamp.UpdateBootcampResponse;
+import com.boot.BootCampProject.service.dtos.requests.bootcamp.*;
+import com.boot.BootCampProject.service.dtos.responses.bootcamp.*;
 import com.boot.BootCampProject.service.mappers.bootcamp.BootcampMapper;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +23,15 @@ public class BootcampServiceImpl implements BootcampService {
 
     @Override
     public CreateBootcampResponse add(CreateBootcampRequest request) {
+        // Bootcamp entity'sini request'ten dönüştürüp kaydediyoruz
         Bootcamp bootcamp = bootcampMapper.toEntity(request);
-        Bootcamp saved = bootcampRepository.save(bootcamp);
+        Bootcamp savedBootcamp = bootcampRepository.save(bootcamp);
+        return bootcampMapper.toCreateResponse(savedBootcamp);
+    }
 
-        return bootcampMapper.toCreateResponse(saved);
+    @Override
+    public List<GetListBootcampResponse> getAll() {
+        return bootcampMapper.toGetListResponse(bootcampRepository.findAll());
     }
 
     @Override
@@ -39,7 +40,6 @@ public class BootcampServiceImpl implements BootcampService {
                 .orElseThrow(() -> new RuntimeException("Bootcamp not found!"));
 
         bootcamp.setName(request.name());
-        bootcamp.setInstructorId(request.instructorId());
         bootcamp.setStartDate(request.startDate());
         bootcamp.setEndDate(request.endDate());
         bootcamp.setBootcampState(request.bootcampState());
@@ -56,13 +56,7 @@ public class BootcampServiceImpl implements BootcampService {
     @Override
     public GetBootcampResponse getById(int id) {
         Bootcamp bootcamp = bootcampRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Bootcamp not found!"));
+                .orElseThrow(() -> new RuntimeException("Bootcamp not found"));
         return bootcampMapper.toGetResponse(bootcamp);
-    }
-
-    @Override
-    public List<GetListBootcampResponse> getAll() {
-        List<Bootcamp> bootcamps = bootcampRepository.findAll();
-        return bootcampMapper.toGetListResponse(bootcamps);
     }
 }

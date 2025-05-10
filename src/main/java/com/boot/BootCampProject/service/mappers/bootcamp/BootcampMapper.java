@@ -1,10 +1,9 @@
 package com.boot.BootCampProject.service.mappers.bootcamp;
 
-
 import com.boot.BootCampProject.entity.Bootcamp;
-
-import com.boot.BootCampProject.service.dtos.responses.bootcamp.*;
 import com.boot.BootCampProject.service.dtos.requests.bootcamp.*;
+import com.boot.BootCampProject.service.dtos.responses.bootcamp.*;
+
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface BootcampMapper {
 
-    Bootcamp toEntity(CreateBootcampRequest request);
+    Bootcamp toEntity(CreateBootcampRequest createBootcampRequest);
 
     CreateBootcampResponse toCreateResponse(Bootcamp bootcamp);
 
@@ -20,5 +19,5 @@ public interface BootcampMapper {
 
     GetBootcampResponse toGetResponse(Bootcamp bootcamp);
 
-    List<GetListBootcampResponse> toGetListResponse(List<Bootcamp> bootcamp);
+    List<GetListBootcampResponse> toGetListResponse(List<Bootcamp> bootcamps);
 }

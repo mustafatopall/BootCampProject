@@ -1,5 +1,6 @@
 package com.boot.BootCampProject.controller;
 
+import com.boot.BootCampProject.entity.Bootcamp;
 import com.boot.BootCampProject.service.abstracts.BootcampService;
 import com.boot.BootCampProject.service.dtos.requests.bootcamp.CreateBootcampRequest;
 import com.boot.BootCampProject.service.dtos.requests.bootcamp.UpdateBootcampRequest;
@@ -27,9 +28,8 @@ public class BootcampController {
         return ResponseEntity.ok(bootcampService.add(request));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UpdateBootcampResponse> update(@PathVariable int id, @RequestBody UpdateBootcampRequest request) {
-        request.setId(id);
+    @PutMapping
+    public ResponseEntity<UpdateBootcampResponse> update(@RequestBody UpdateBootcampRequest request) {
         return ResponseEntity.ok(bootcampService.update(request));
     }
 

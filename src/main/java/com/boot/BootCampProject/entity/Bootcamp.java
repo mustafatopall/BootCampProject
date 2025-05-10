@@ -3,6 +3,8 @@ package com.boot.BootCampProject.entity;
 import com.boot.BootCampProject.entity.enums.BootcampState;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "bootcamps")
 public class Bootcamp {
@@ -12,66 +14,52 @@ public class Bootcamp {
     private int id;
 
     private String name;
-    private int instructorId;
     private String startDate;
     private String endDate;
+
+    @Enumerated(EnumType.STRING)
     private BootcampState bootcampState;
 
-    public Bootcamp(){}
+    @ManyToOne
+    @JoinColumn(name = "instructor_id", nullable = false)
+    private Instructor instructor;
 
-    public Bootcamp(String name, int instructorId, String startDate, String endDate, BootcampState bootcampState) {
+    @OneToMany(mappedBy = "bootcamp", cascade = CascadeType.ALL)
+    private List<Application> applications;
+
+    public Bootcamp() {}
+
+    public Bootcamp(String name, Instructor instructor, String startDate, String endDate, BootcampState bootcampState) {
         this.name = name;
-        this.instructorId = instructorId;
+        this.instructor = instructor;
         this.startDate = startDate;
         this.endDate = endDate;
         this.bootcampState = bootcampState;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getName() { return name; }
 
-    public String getName() {
-        return name;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getStartDate() { return startDate; }
 
-    public int getInstructorId() {
-        return instructorId;
-    }
+    public void setStartDate(String startDate) { this.startDate = startDate; }
 
-    public void setInstructorId(int instructorId) {
-        this.instructorId = instructorId;
-    }
+    public String getEndDate() { return endDate; }
 
-    public String getStartDate() {
-        return startDate;
-    }
+    public void setEndDate(String endDate) { this.endDate = endDate; }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+    public BootcampState getBootcampState() { return bootcampState; }
 
-    public String getEndDate() {
-        return endDate;
-    }
+    public void setBootcampState(BootcampState bootcampState) { this.bootcampState = bootcampState; }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
+    public Instructor getInstructor() { return instructor; }
 
-    public BootcampState getBootcampState() {
-        return bootcampState;
-    }
+    public void setInstructor(Instructor instructor) { this.instructor = instructor; }
 
-    public void setBootcampState(BootcampState bootcampState) {
-        this.bootcampState = bootcampState;
-    }
+    public List<Application> getApplications() { return applications; }
+
+    public void setApplications(List<Application> applications) { this.applications = applications; }
 }

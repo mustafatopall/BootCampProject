@@ -3,7 +3,6 @@ package com.boot.BootCampProject.entity;
 import com.boot.BootCampProject.entity.enums.ApplicationState;
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "applications")
 public class Application {
@@ -12,35 +11,43 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int applicantId;
-    private int bootcampId;
+    @ManyToOne
+    @JoinColumn(name = "applicant_id", nullable = false)
+    private Applicant applicant;
+
+    @ManyToOne
+    @JoinColumn(name = "bootcamp_id", nullable = false)
+    private Bootcamp bootcamp;
 
     @Enumerated(EnumType.STRING)
     private ApplicationState applicationState;
 
-    public Application(int id, int applicantId, int bootcampId, ApplicationState applicationState) {
-        this.id = id;
-        this.applicantId = applicantId;
-        this.bootcampId = bootcampId;
+    public Application() {}
+
+    public Application(Applicant applicant, Bootcamp bootcamp, ApplicationState applicationState) {
+        this.applicant = applicant;
+        this.bootcamp = bootcamp;
         this.applicationState = applicationState;
     }
 
-    public Application() {}
-
-    public int getApplicantId() {
-        return applicantId;
+    public int getId() {
+        return id;
     }
 
-    public void setApplicantId(int applicantId) {
-        this.applicantId = applicantId;
+    public Applicant getApplicant() {
+        return applicant;
     }
 
-    public int getBootcampId() {
-        return bootcampId;
+    public void setApplicant(Applicant applicant) {
+        this.applicant = applicant;
     }
 
-    public void setBootcampId(int bootcampId) {
-        this.bootcampId = bootcampId;
+    public Bootcamp getBootcamp() {
+        return bootcamp;
+    }
+
+    public void setBootcamp(Bootcamp bootcamp) {
+        this.bootcamp = bootcamp;
     }
 
     public ApplicationState getApplicationState() {

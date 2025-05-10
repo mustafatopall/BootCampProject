@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class ApplicantServiceImpl implements ApplicantService {
 
@@ -46,7 +45,6 @@ public class ApplicantServiceImpl implements ApplicantService {
 
         Applicant updated = applicantRepository.save(applicant);
         return applicantMapper.toUpdateResponse(updated);
-
     }
 
     @Override
@@ -60,5 +58,4 @@ public class ApplicantServiceImpl implements ApplicantService {
                 .orElseThrow(() -> new RuntimeException("Applicant not found"));
         return applicantMapper.toGetResponse(applicant);
     }
-
 }

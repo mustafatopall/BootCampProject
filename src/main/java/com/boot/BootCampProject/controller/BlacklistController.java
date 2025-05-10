@@ -27,9 +27,9 @@ public class BlacklistController {
         return ResponseEntity.ok(blacklistService.add(request));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UpdateBlacklistResponse> update(@PathVariable int id, @RequestBody UpdateBlacklistRequest request) {
-        request.setId(id);
+    @PutMapping
+    public ResponseEntity<UpdateBlacklistResponse> update(@RequestBody UpdateBlacklistRequest request) {
+
         return ResponseEntity.ok(blacklistService.update(request));
     }
 

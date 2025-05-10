@@ -1,27 +1,22 @@
 package com.boot.BootCampProject.service.concretes;
 
 import com.boot.BootCampProject.entity.Instructor;
-import com.boot.BootCampProject.repository.InstructorRespository;
+import com.boot.BootCampProject.repository.InstructorRepository;
 import com.boot.BootCampProject.service.abstracts.InstructorService;
-import com.boot.BootCampProject.service.dtos.requests.instructor.CreateInstructorRequest;
-import com.boot.BootCampProject.service.dtos.requests.instructor.UpdateInstructorRequest;
-import com.boot.BootCampProject.service.dtos.responses.instructor.CreateInstructorResponse;
-import com.boot.BootCampProject.service.dtos.responses.instructor.GetInstructorResponse;
-import com.boot.BootCampProject.service.dtos.responses.instructor.GetListInstructorResponse;
-import com.boot.BootCampProject.service.dtos.responses.instructor.UpdateInstructorResponse;
+import com.boot.BootCampProject.service.dtos.requests.instructor.*;
+import com.boot.BootCampProject.service.dtos.responses.instructor.*;
 import com.boot.BootCampProject.service.mappers.instructor.InstructorMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class InstructorServiceImpl implements InstructorService {
 
-    private final InstructorRespository instructorRepository;
+    private final InstructorRepository instructorRepository;
     private final InstructorMapper instructorMapper;
 
-    public InstructorServiceImpl(InstructorRespository instructorRepository, InstructorMapper instructorMapper) {
+    public InstructorServiceImpl(InstructorRepository instructorRepository, InstructorMapper instructorMapper) {
         this.instructorRepository = instructorRepository;
         this.instructorMapper = instructorMapper;
     }
@@ -29,9 +24,8 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     public CreateInstructorResponse add(CreateInstructorRequest request) {
         Instructor instructor = instructorMapper.toEntity(request);
-        Instructor saved = instructorRepository.save(instructor);
-
-        return instructorMapper.toCreateResponse(saved);
+        Instructor savedInstructor = instructorRepository.save(instructor);
+        return instructorMapper.toCreateResponse(savedInstructor);
     }
 
     @Override
@@ -41,18 +35,16 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public UpdateInstructorResponse update(UpdateInstructorRequest request) {
-       Instructor instructor = instructorRepository.findById(request.id())
-               .orElseThrow(() -> new RuntimeException("Instructor not found!!!"));
+        Instructor instructor = instructorRepository.findById(request.id())
+                .orElseThrow(() -> new RuntimeException("Instructor not found!"));
 
-       instructor.setFirstName(request.firstName());
-       instructor.setLastName(request.lastName());
-       instructor.setEmail(request.email());
-       instructor.setCompanyName(request.companyName());
+        instructor.setFirstName(request.firstName());
+        instructor.setLastName(request.lastName());
+        instructor.setEmail(request.email());
+        instructor.setCompanyName(request.companyName());
 
-       Instructor saved = instructorRepository.save(instructor);
-
-       return instructorMapper.toUpdateResponse(saved);
-
+        Instructor updated = instructorRepository.save(instructor);
+        return instructorMapper.toUpdateResponse(updated);
     }
 
     @Override
@@ -63,7 +55,7 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     public GetInstructorResponse getById(int id) {
         Instructor instructor = instructorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Instructor not found!!!"));
+                .orElseThrow(() -> new RuntimeException("Instructor not found"));
         return instructorMapper.toGetResponse(instructor);
     }
 }
